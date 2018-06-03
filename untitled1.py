@@ -30,8 +30,23 @@ for j in range(0,5):
     print('*'*100)
 
 
-
-
+#完美版本
+import urllib.request as r
+city=input('请输入城市拼音：')
+city_address="http://api.openweathermap.org/data/2.5/forecast?q={},cn&mode=json&lang=zh_cn&&APPID=6a67ed641c0fda8b69715c43518b6996 ".format(city)
+info=r.urlopen(city_address).read().decode('utf-8','ignore')
+            
+import json
+data=json.loads(info)
+index=int(len(data['list']))
+for i in range(0,index):
+    day=data['list'][i]
+    time=day['dt_txt']
+    temp=day['main']['temp']
+    description=day['weather'][0]['description']
+    temp_max=day['main']['temp_max']
+    pressure=day['main']['pressure']
+    print('{}当前时间{}温度为{}，天气情况{}，最高温度{}，气压为{}'.format(city,time,temp,description,temp_max,pressure))
 
 
 
